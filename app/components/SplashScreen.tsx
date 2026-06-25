@@ -256,7 +256,7 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
       <AnimatePresence>
         {(animationPhase === 'fog' || animationPhase === 'exit') && (
           <motion.div
-            variants={fogVariants}
+            variants={fogVariants as any}
             initial="hidden"
             animate={animationPhase === 'exit' ? 'exit' : 'visible'}
             exit="exit"
