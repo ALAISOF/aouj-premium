@@ -14,7 +14,7 @@ interface Particle {
   z: number;
   vz: number;
   brightness: number;
-  hue: 'white' | 'silver'; // تم التغيير من violet إلى silver
+  hue: 'white' | 'silver';
   trailLength: number;
 }
 
@@ -47,7 +47,7 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
         z: Math.random() * 8000 + 100,
         vz: Math.random() * 35 + 15,
         brightness: Math.random() * 0.85 + 0.15,
-        hue: Math.random() > 0.75 ? 'silver' : 'white', // توزيع النيازك الفضية والبيضاء
+        hue: Math.random() > 0.75 ? 'silver' : 'white',
         trailLength: Math.random() * 60 + 40,
       });
     }
@@ -78,7 +78,6 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
     const animate = (timestamp: number): void => {
       const elapsed: number = timestamp - startTimeRef.current;
 
-      // تأثير الذيل الممتد مع لون الكحلي الملكي للعمق البصري
       ctx.fillStyle = 'rgba(7, 11, 25, 0.08)'; 
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -111,10 +110,9 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
           const progressFade: number = Math.min(1, progress * 1.3);
           const baseOpacity: number = particle.brightness * depthFactor * progressFade;
 
-          // تعديل الألوان هنا إلى الفضي البلاتيني والأبيض الثلجي
           const primaryColor: string = particle.hue === 'silver'
-            ? `rgba(194, 207, 224, ${baseOpacity * 0.95})` // بلاتينيوم
-            : `rgba(255, 255, 255, ${baseOpacity})`;       // أبيض ناصع
+            ? `rgba(194, 207, 224, ${baseOpacity * 0.95})`
+            : `rgba(255, 255, 255, ${baseOpacity})`;
 
           ctx.strokeStyle = primaryColor;
           ctx.lineWidth = Math.max(0.8, depthFactor * (1.5 + speedMultiplier * 4));
@@ -127,9 +125,8 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
           ctx.lineTo(screenX, screenY);
           ctx.stroke();
 
-          // توهج النيازك (Glow Effect) باللون الأزرق الملكي والفضي الخفيف
           const glowColor: string = particle.hue === 'silver'
-            ? `rgba(148, 179, 219, ${baseOpacity * 0.4})` // توهج أزرق فضي فخم
+            ? `rgba(148, 179, 219, ${baseOpacity * 0.4})`
             : `rgba(255, 255, 255, ${baseOpacity * 0.5})`;
 
           ctx.strokeStyle = glowColor;
@@ -141,7 +138,6 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
           ctx.lineTo(screenX, screenY);
           ctx.stroke();
 
-          // الطبقة الخارجية العميقة للتوهج السينمائي
           ctx.strokeStyle = glowColor;
           ctx.lineWidth = Math.max(6, depthFactor * (20 + speedMultiplier * 35));
           ctx.globalAlpha = Math.max(0.02, 0.04 + speedMultiplier * 0.04);
@@ -240,9 +236,8 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
         opacity: 0,
         transition: { duration: EXIT_DURATION_MS / 1000, ease: 'easeInOut' },
       }}
-      className="fixed inset-0 w-full h-screen bg-[#070B19] flex items-center justify-center z-50 overflow-hidden" // تم تغيير الخلفية إلى كحلي ملوكي داكن
+      className="fixed inset-0 w-full h-screen bg-[#070B19] flex items-center justify-center z-50 overflow-hidden"
     >
-      {/* Canvas التجريدي للسرعة الخارقة */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
@@ -252,7 +247,6 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
         }}
       />
 
-      {/* الضباب الزجاجي الملكي مع التدرج الكحلي العميق */}
       <AnimatePresence>
         {(animationPhase === 'fog' || animationPhase === 'exit') && (
           <motion.div
@@ -271,7 +265,6 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
         )}
       </AnimatePresence>
 
-      {/* ظهور اللوغو الجديد مع السلوجان */}
       <AnimatePresence>
         {(animationPhase === 'fog' || animationPhase === 'exit') && (
           <motion.div
@@ -279,12 +272,11 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
             style={{ pointerEvents: 'none' }}
           >
             <motion.div
-              variants={logoVariants}
+              variants={logoVariants as any}
               initial="hidden"
               animate={animationPhase === 'exit' ? 'exit' : 'visible'}
               exit="exit"
             >
-              {/* تعديل توهج اللوغو (Glow) ليصبح بلاتيني فضي ملكي متناسق */}
               <motion.div
                 animate={{
                   filter: [
@@ -299,7 +291,6 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
                   ease: 'easeInOut',
                 }}
               >
-                {/* اللوغو الجديد الفضي تأكد إن مساره صح في الـ public */}
                 <Image
                   src="/logo_logo.png" 
                   alt="AOUJ Premium Logo"
@@ -318,9 +309,8 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
               </motion.div>
             </motion.div>
 
-            {/* السلوجان الفخم مضاف له تباين وظل فضي هادئ */}
             <motion.div
-              variants={sloganVariants}
+              variants={sloganVariants as any}
               initial="hidden"
               animate={animationPhase === 'exit' ? 'exit' : 'visible'}
               exit="exit"
