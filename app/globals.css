@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+@import "tailwindcss";
+
+@theme {
+  --color-brand-background: #0B0A0F;
+  --color-brand-violet: #8B5CF6;
+  --color-brand-platinum: #E2E8F0;
+}
