@@ -292,7 +292,7 @@ export default function SplashScreen({ onLoadingComplete }: SplashScreenProps): 
                 }}
               >
                 <Image
-                  src="/logo_logo.png" 
+                  src="/logo_logon.png" 
                   alt="AOUJ Premium Logo"
                   width={420}
                   height={420}
